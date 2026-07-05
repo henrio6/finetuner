@@ -36,17 +36,7 @@ void LimitRenderDistance()
 #elif MP4
 	array<CHmsCamera@> cameras = {Camera::GetCurrent()};
 #else
-	array<CHmsCamera@> cameras;
-	auto viewport = GetApp().Viewport;
-
-	// Get all cameras to make the render distance limit work with splitscreen
-	for (int i = int(viewport.Cameras.Length) - 1; i >= 0; i--) {
-		auto camera = viewport.Cameras[i];
-		if (camera.m_IsOverlay3d) {
-			continue;
-		}
-		cameras.InsertLast(camera);
-	}
+	array<CHmsCamera@> cameras = Camera::GetAll();
 #endif
 	if (cameras.Length == 0 || cameras[0] is null) {
 		return;
